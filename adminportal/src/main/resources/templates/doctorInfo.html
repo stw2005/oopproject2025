@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-user-md"></i> Doctor Information
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- Doctor Name -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Doctor Name:</label>
+									<div class="col-md-8">
+										<p class="form-control-static" th:text="${doctor.doctorName}"></p>
+									</div>
+								</div>
+
+								<!-- Specialization -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Specialization:</label>
+									<div class="col-md-8">
+										<p class="form-control-static">
+											<span class="label label-info" th:text="${doctor.specialization}"></span>
+										</p>
+									</div>
+								</div>
+
+								<!-- Email -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Email:</label>
+									<div class="col-md-8">
+										<p class="form-control-static">
+											<a th:href="'mailto:' + ${doctor.email}" th:text="${doctor.email}"></a>
+										</p>
+									</div>
+								</div>
+
+								<!-- Phone Number -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Phone Number:</label>
+									<div class="col-md-8">
+										<p class="form-control-static">
+											<a th:href="'tel:' + ${doctor.phoneNumber}" th:text="${doctor.phoneNumber}"></a>
+										</p>
+									</div>
+								</div>
+
+								<!-- Status -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Status:</label>
+									<div class="col-md-8">
+										<p class="form-control-static">
+											<span th:if="${doctor.active}" class="label label-success">
+												<i class="fa fa-check"></i> Active
+											</span>
+											<span th:unless="${doctor.active}" class="label label-danger">
+												<i class="fa fa-times"></i> Inactive
+											</span>
+										</p>
+									</div>
+								</div>
+
+								<!-- Doctor ID (for admin reference) -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Doctor ID:</label>
+									<div class="col-md-8">
+										<p class="form-control-static">
+											<code th:text="${doctor.id}"></code>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<div class="text-center">
+							<a th:href="@{/doctor/updateDoctor(id=${doctor.id})}" class="btn btn-warning">
+								<i class="fa fa-edit"></i> Edit Doctor
+							</a>
+							<button th:onclick="'deleteDoctor(' + ${doctor.id} + ')'" class="btn btn-danger">
+								<i class="fa fa-trash"></i> Delete Doctor
+							</button>
+							<a th:href="@{/doctor/doctorList}" class="btn btn-default">
+								<i class="fa fa-list"></i> Back to List
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+	<script>
+		function deleteDoctor(doctorId) {
+			bootbox.confirm({
+				message: "Are you sure you want to delete this doctor? This action cannot be undone.",
+				buttons: {
+					confirm: {
+						label: 'Yes, Delete',
+						className: 'btn-danger'
+					},
+					cancel: {
+						label: 'Cancel',
+						className: 'btn-default'
+					}
+				},
+				callback: function (result) {
+					if (result) {
+						var form = $('<form method="post" action="/doctor/remove"></form>');
+						form.append('<input type="hidden" name="id" value="doctorId' + doctorId + '" />');
+						$('body').append(form);
+						form.submit();
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

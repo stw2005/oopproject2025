@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="jumbotron text-center">
+					<h1><i class="fa fa-hospital-o"></i> Hospital Management System</h1>
+					<p class="lead">Welcome to NP's Hospital Management System Admin Portal</p>
+					<p>Manage patients, doctors, and hospital operations efficiently.</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-users"></i> Patient Management</h3>
+					</div>
+					<div class="panel-body">
+						<p>Manage patient records, registrations, and medical information.</p>
+						<div class="btn-group-vertical btn-group-justified">
+							<a th:href="@{/patient/add}" class="btn btn-primary">
+								<i class="fa fa-plus"></i> Register New Patient
+							</a>
+							<a th:href="@{/patient/patientList}" class="btn btn-info">
+								<i class="fa fa-list"></i> View All Patients
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-user-md"></i> Doctor Management</h3>
+					</div>
+					<div class="panel-body">
+						<p>Manage doctor profiles, specializations, and contact information.</p>
+						<div class="btn-group-vertical btn-group-justified">
+							<a th:href="@{/doctor/add}" class="btn btn-success">
+								<i class="fa fa-plus"></i> Add New Doctor
+							</a>
+							<a th:href="@{/doctor/doctorList}" class="btn btn-info">
+								<i class="fa fa-list"></i> View All Doctors
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title"><i class="fa fa-database"></i> Database Console</h3>
+					</div>
+					<div class="panel-body">
+						<p>Access the H2 database console for advanced database operations and queries.</p>
+						<a href="/h2-console" target="_blank" class="btn btn-warning">
+							<i class="fa fa-external-link"></i> Open H2 Console
+						</a>
+						<small class="text-muted">
+							<br>Default connection: <code>jdbc:h2:mem:testdb</code>
+							<br>Username: <code>sa</code> | Password: <em>(leave blank)</em>
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
